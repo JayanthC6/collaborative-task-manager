@@ -10,11 +10,18 @@ interface TaskFormProps {
 
 export const TaskForm = ({ task, onSubmit, onCancel }: TaskFormProps) => {
     const { users } = useUsers();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        title: string;
+        description: string;
+        status: 'TODO' | 'IN_PROGRESS' | 'DONE';
+        priority: 'LOW' | 'MEDIUM' | 'HIGH';
+        assignedToId: string;
+        dueDate: string;
+    }>({
         title: '',
         description: '',
-        status: 'TODO' as const,
-        priority: 'MEDIUM' as const,
+        status: 'TODO',
+        priority: 'MEDIUM',
         assignedToId: '',
         dueDate: '',
     });
@@ -26,8 +33,8 @@ export const TaskForm = ({ task, onSubmit, onCancel }: TaskFormProps) => {
             setFormData({
                 title: task.title,
                 description: task.description || '',
-                status: task.status as 'TODO' | 'IN_PROGRESS' | 'DONE',
-                priority: task.priority as 'LOW' | 'MEDIUM' | 'HIGH',
+                status: task.status,
+                priority: task.priority,
                 assignedToId: task.assignedToId || '',
                 dueDate: task.dueDate ? task.dueDate.split('T')[0] : '',
             });
