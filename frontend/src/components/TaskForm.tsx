@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Task, User } from '../types';
+import { Task } from '../types';
 import { useUsers } from '../hooks/useUsers';
 
 interface TaskFormProps {
@@ -26,8 +26,8 @@ export const TaskForm = ({ task, onSubmit, onCancel }: TaskFormProps) => {
             setFormData({
                 title: task.title,
                 description: task.description || '',
-                status: task.status,
-                priority: task.priority,
+                status: task.status as 'TODO' | 'IN_PROGRESS' | 'DONE',
+                priority: task.priority as 'LOW' | 'MEDIUM' | 'HIGH',
                 assignedToId: task.assignedToId || '',
                 dueDate: task.dueDate ? task.dueDate.split('T')[0] : '',
             });
